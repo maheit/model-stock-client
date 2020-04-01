@@ -3,7 +3,7 @@ import thunk from "redux-thunk";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 // const composeEnhancers = compose;
-import shopReducer from "../reducers/dashboard";
+import shopReducer from "../../reducers/dashboard";
 
 export default () => {
   const store = createStore(
