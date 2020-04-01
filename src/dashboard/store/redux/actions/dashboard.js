@@ -1,4 +1,4 @@
-import { dashboard } from "../constants/store/dashboard";
+import { dashboard } from "../../../constants/store/dashboard";
 
 export const addProductToCart = (product) => {
   return (dispatch) => {

@@ -1,18 +1,13 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-
-import Product from "./components/dashboard/Product";
-import Cart from "./components/dashboard/Cart";
+import MainPath from "./routers/MainPath";
+import GlobalState from "./store/context/GlobalState";
 
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" component={Product} exact />
-          <Route path="/cart" component={Cart} exact />
-        </Switch>
-      </BrowserRouter>
+      <GlobalState>
+        <MainPath />
+      </GlobalState>
     );
   }
 }

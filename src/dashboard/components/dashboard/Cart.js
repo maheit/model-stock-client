@@ -1,19 +1,16 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { removeProductFromCart } from "../../actions/dashboard";
 import "../../styles/Cart.css";
-import MainNavigation from "./MainNavigation";
+import ShopContext from "../../store/context/Shop-Context";
 
 class Cart extends Component {
+  static contextType = ShopContext;
   render() {
     return (
       <React.Fragment>
-        <MainNavigation cartItemNumber={this.props.cartItemCount} />
-
         <main className="cart">
-          {this.props.cartItems.length <= 0 && <p>No Item in the Cart!</p>}
+          {this.context.cart.length <= 0 && <p>No Item in the Cart!</p>}
           <ul>
-            {this.props.cartItems.map((cartItem) => (
+            {this.context.cart.map((cartItem) => (
               <li key={cartItem.id}>
                 <div>
                   <strong>{cartItem.title}</strong> - ${cartItem.price} (
@@ -21,7 +18,7 @@ class Cart extends Component {
                 </div>
                 <div>
                   <button
-                    onClick={this.props.removeProductFromCart.bind(
+                    onClick={this.context.removeProductFromCart.bind(
                       this,
                       cartItem.id
                     )}
@@ -38,19 +35,4 @@ class Cart extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    cartItems: state.shopReducer.cart,
-    cartItemCount: state.shopReducer.cart.reduce((count, curItem) => {
-      return count + curItem.quantity;
-    }, 0),
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    removeProductFromCart: (id) => dispatch(removeProductFromCart(id)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default Cart;
