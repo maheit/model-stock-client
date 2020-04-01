@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import ShopContext from "./Shop-Context";
+import { dashboard } from "../../constants/store/dashboard";
+import { shopReducers } from "./reducers";
 
 export default (props) => {
   const [products, setProducts] = useState([
@@ -9,42 +11,21 @@ export default (props) => {
     { id: "4", title: "hard disk", price: 579.99 },
   ]);
 
-  const [cart, setCart] = useState([]);
+  // const [cart, setCart] = useState([]);
+  const [cartState, dispatch] = useReducer(shopReducers, { cart: [] });
   const addProductToCart = (product) => {
-    let updatedCart = [...cart];
-    let indexInCart = updatedCart.findIndex((value) => {
-      return value.id === product.id;
-    });
-    if (indexInCart < 0) {
-      updatedCart.push({ ...product, quantity: 1 });
-    } else {
-      let updateCartItem = updatedCart[indexInCart];
-      updateCartItem.quantity++;
-      updatedCart[indexInCart] = updateCartItem;
-    }
-    setCart(updatedCart);
+    dispatch({ type: dashboard.ADD_PRODUCT_TO_CART, product });
   };
 
   const removeProductFromCart = (productId) => {
-    let updatedCart = [...cart];
-    let indexInCart = updatedCart.findIndex((value) => {
-      return value.id === productId;
-    });
-    let updateCartItem = updatedCart[indexInCart];
-    updateCartItem.quantity--;
-    if (updateCartItem.quantity <= 0) {
-      updatedCart.splice(indexInCart, 1);
-    } else {
-      updatedCart[indexInCart] = updateCartItem;
-    }
-    setCart(updatedCart);
+    dispatch({ type: dashboard.REMOVE_PRODUCT_FROM_CART, productId });
   };
 
   return (
     <ShopContext.Provider
       value={{
         products: products,
-        cart: cart,
+        cart: cartState.cart,
         addProductToCart: addProductToCart,
         removeProductFromCart: removeProductFromCart,
       }}
