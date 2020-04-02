@@ -71,7 +71,7 @@ module.exports = {
     ],
   },
   plugins: [new CleanWebpackPlugin(), ...htmlWebpackPluginsPages],
-  devtool: "cheap-module-eval-source-map",
+  devtool: "nosources-source-map",
   devServer: {
     contentBase: path.join(__dirname, "public/"),
     publicPath: "/scripts/",
