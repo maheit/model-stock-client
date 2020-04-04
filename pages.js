@@ -4,7 +4,7 @@ const pagesList = {
     chunk: "./src/dashboard/index.js",
     js: [],
     css: [],
-    title: "App",
+    title: "App for FC",
     favicon: "",
     meta: {
       viewport: "width=device-width, initial-scale=1, shrink-to-fit=no",
