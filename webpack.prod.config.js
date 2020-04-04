@@ -2,6 +2,7 @@ const path = require("path");
 const pagesConfig = require("./pages");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 let pagesList = { ...pagesConfig.pages };
 let pages = {};
@@ -31,12 +32,19 @@ Object.keys(pagesList).forEach((key) => {
       filename: `${key}.[hash].html`,
       chunks: [...jsChunks],
       minify: {
-        collapseWhitespace: true,
+        minifyJS: true,
+        minifyCSS: true,
         removeComments: true,
+        useShortDoctype: true,
+        collapseWhitespace: true,
+        collapseInlineTagWhitespace: true,
       },
       files: {
         css: [...pagesList[`${key}`]["css"]],
         js: [...pagesList[`${key}`]["js"]],
+      },
+      append: {
+        head: `<script src="//cdn.polyfill.io/v3/polyfill.min.js"></script>`,
       },
       ...basicDetails,
     })

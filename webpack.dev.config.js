@@ -2,6 +2,7 @@ const path = require("path");
 const pagesConfig = require("./pages");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 let pagesList = { ...pagesConfig.pages };
 let pages = {};
@@ -59,11 +60,14 @@ console.log(JSON.stringify(pages));
 console.log(devUrlPatterns);
 
 module.exports = {
+  // context: sourcePath,
   entry: { ...pages },
   output: {
     path: path.resolve(__dirname, "public"),
     filename: "scripts/[name].[hash].js",
+    // chunkFilename: "[name].[contenthash].js", // For production
   },
+  // target: 'web',
   module: {
     rules: [
       {

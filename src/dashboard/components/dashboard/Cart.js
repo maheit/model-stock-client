@@ -5,6 +5,10 @@ import ShopContext from "../../store/context/Shop-Context";
 const Cart = (props) => {
   const context = useContext(ShopContext);
 
+  useEffect(() => {
+    console.log("Test");
+  }, []);
+
   return (
     <React.Fragment>
       <main className="cart">
